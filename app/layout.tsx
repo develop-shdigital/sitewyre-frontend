@@ -46,10 +46,25 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  url: site.domain,
+  description: site.description,
+  areaServed: "Worldwide",
+  knowsAbout: ["WordPress development", "Next.js development", "React", "WooCommerce", "Web performance optimization"],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${mono.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <a
           href="#main-content"
           className="fixed left-4 top-4 z-[100] -translate-y-20 rounded-full bg-accent px-4 py-2 font-mono text-label text-accent-fg transition-transform focus:translate-y-0"

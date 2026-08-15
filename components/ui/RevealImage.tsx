@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import Image, { type StaticImageData } from "next/image";
 import { motionTokens } from "@/lib/motion-tokens";
+import { useSafeReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface RevealImageProps {
   src: string | StaticImageData;
@@ -21,7 +22,7 @@ interface RevealImageProps {
  * itself feels like it's assembling rather than just fading in.
  */
 export function RevealImage({ src, alt, className, sizes, priority, fill = true, width, height }: RevealImageProps) {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   return (
     <div className={className} style={{ overflow: "hidden", position: "relative" }}>

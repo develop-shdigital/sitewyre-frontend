@@ -13,6 +13,8 @@ export interface Project {
   performance: string;
   services: string[];
   technologies: string[];
+  /** Canonical filter buckets for the /work index — a subset of "Web Design" | "WordPress" | "E-commerce" | "Development" | "Performance". */
+  filters: string[];
   featured: boolean;
   /** External live URL — only set when confirmed real; omitted otherwise. */
   url?: string;
@@ -42,6 +44,7 @@ export const projects: Project[] = [
     performance: "Image-heavy pages optimized for fast loading on mobile connections.",
     services: ["Web Design", "WordPress Development", "UX"],
     technologies: ["WordPress", "Elementor"],
+    filters: ["Web Design", "WordPress"],
     featured: true,
   },
   {
@@ -61,6 +64,7 @@ export const projects: Project[] = [
     performance: "Optimized asset loading for content-heavy archive and article pages.",
     services: ["WordPress Development", "Custom Development"],
     technologies: ["WordPress"],
+    filters: ["WordPress", "Development"],
     featured: true,
   },
   {
@@ -77,6 +81,7 @@ export const projects: Project[] = [
     performance: "Performance and Core Web Vitals work focused on product and checkout pages.",
     services: ["E-commerce", "WooCommerce", "Performance Optimization"],
     technologies: ["WordPress", "WooCommerce"],
+    filters: ["E-commerce", "WordPress", "Performance"],
     featured: true,
   },
   {
@@ -94,6 +99,7 @@ export const projects: Project[] = [
     performance: "Optimized for fast, reliable loading across devices.",
     services: ["Web Design", "WordPress Development"],
     technologies: ["WordPress"],
+    filters: ["Web Design", "WordPress"],
     featured: false,
   },
   {
@@ -111,6 +117,7 @@ export const projects: Project[] = [
     performance: "Optimized for fast, dependable loading.",
     services: ["Web Design", "WordPress Development"],
     technologies: ["WordPress"],
+    filters: ["Web Design", "WordPress"],
     featured: false,
   },
   {
@@ -127,6 +134,7 @@ export const projects: Project[] = [
     performance: "Optimized for fast content delivery as the archive grows.",
     services: ["Web Design", "WordPress Development"],
     technologies: ["WordPress"],
+    filters: ["Web Design", "WordPress"],
     featured: false,
   },
   {
@@ -144,6 +152,7 @@ export const projects: Project[] = [
     performance: "Optimized for fast, reliable loading on mobile.",
     services: ["Web Design", "WordPress Development"],
     technologies: ["WordPress"],
+    filters: ["Web Design", "WordPress"],
     featured: false,
   },
 ];

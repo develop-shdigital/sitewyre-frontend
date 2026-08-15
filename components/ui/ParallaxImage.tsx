@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
+import { useSafeReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface ParallaxImageProps {
   src: string;
@@ -16,7 +17,7 @@ interface ParallaxImageProps {
 /** Image that drifts vertically at a different rate than scroll — disabled under reduced motion. */
 export function ParallaxImage({ src, alt, className, strength = 60, sizes }: ParallaxImageProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-strength, strength]);
 

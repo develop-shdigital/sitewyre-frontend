@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "motion/react";
 import { RevealText } from "@/components/ui/RevealText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { GridLines } from "@/components/ui/GridLines";
 import { WireframeFallback } from "@/components/three/WireframeFallback";
 import { useWebglSupport } from "@/hooks/use-webgl-support";
+import { useSafeReducedMotion } from "@/hooks/use-reduced-motion";
 import { motionConfig } from "@/lib/motion-config";
 import { site } from "@/lib/site";
 import { motionTokens } from "@/lib/motion-tokens";
@@ -21,12 +22,14 @@ const WireframeScene = dynamic(
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollProgressRef = useRef(0);
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const webglSupported = useWebglSupport();
   const [isLowEnd, setIsLowEnd] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setIsLowEnd(motionConfig.isLowEnd());
+    setMounted(true);
   }, []);
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
@@ -38,8 +41,12 @@ export function Hero() {
   const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -40]);
 
-  const use3D = webglSupported === true && !reduce && !isLowEnd;
-  const useFallbackVisual = webglSupported === false || reduce || isLowEnd;
+  // Gate on `mounted` so the server render and the client's first hydration
+  // pass are always identical (neither visual renders yet) — WebGL support,
+  // low-end detection, and reduced-motion all resolve from client-only APIs
+  // and would otherwise flip the tree between server and client output.
+  const use3D = mounted && webglSupported === true && !reduce && !isLowEnd;
+  const useFallbackVisual = mounted && (webglSupported === false || reduce || isLowEnd);
 
   return (
     <section ref={sectionRef} className="relative h-[100svh] min-h-[640px] overflow-hidden bg-bg">

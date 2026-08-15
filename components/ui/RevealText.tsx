@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { motionTokens, springs } from "@/lib/motion-tokens";
+import { useSafeReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface RevealTextProps {
   children: string;
@@ -27,7 +28,7 @@ export function RevealText({
   delay = 0,
   once = true,
 }: RevealTextProps) {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const units = by === "words" ? children.split(" ") : children.split("\n");
 
   const container = {
@@ -56,10 +57,15 @@ export function RevealText({
         viewport={{ once, margin: "-80px" }}
       >
         {units.map((unit, i) => (
-          <span key={i} className="inline-block overflow-hidden align-top pb-[0.1em]">
+          <span
+            key={i}
+            className="inline-block overflow-hidden align-top pb-[0.1em]"
+            // Trailing whitespace collapses at the edge of an inline-block,
+            // so word gaps are a real margin instead of a literal " " char.
+            style={by === "words" && i < units.length - 1 ? { marginRight: "0.28em" } : undefined}
+          >
             <motion.span className="inline-block" variants={unitVariants}>
               {unit}
-              {by === "words" && i < units.length - 1 ? " " : ""}
             </motion.span>
           </span>
         ))}

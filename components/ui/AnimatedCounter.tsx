@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, useInView, useReducedMotion } from "motion/react";
+import { animate, useInView } from "motion/react";
 import { motionTokens } from "@/lib/motion-tokens";
+import { useSafeReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface AnimatedCounterProps {
   to: number;
@@ -15,11 +16,17 @@ export function AnimatedCounter({ to, suffix = "", className }: AnimatedCounterP
   const nodeRef = useRef<HTMLSpanElement>(null);
   const wrapperRef = useRef<HTMLSpanElement>(null);
   const inView = useInView(wrapperRef, { once: true, margin: "-80px" });
-  const reduce = useReducedMotion();
-  const [display, setDisplay] = useState(reduce ? to : 0);
+  const reduce = useSafeReducedMotion();
+  // Always 0 on server and on the client's first paint — reduce is false
+  // until mount, so this never diverges from the server-rendered markup.
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (!inView || reduce) return;
+    if (!inView) return;
+    if (reduce) {
+      setDisplay(to);
+      return;
+    }
     const controls = animate(0, to, {
       duration: motionTokens.duration.crawl,
       ease: motionTokens.easing.smooth,

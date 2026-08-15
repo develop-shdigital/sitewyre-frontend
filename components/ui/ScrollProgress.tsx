@@ -1,0 +1,18 @@
+"use client";
+
+import { motion, useScroll, useSpring } from "motion/react";
+import { springs } from "@/lib/motion-tokens";
+
+/** Fixed top progress bar tracking overall page scroll — the accent as a wire being drawn. */
+export function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, springs.gentle);
+
+  return (
+    <motion.div
+      aria-hidden
+      className="fixed top-0 left-0 right-0 h-px bg-accent origin-left z-[60]"
+      style={{ scaleX }}
+    />
+  );
+}

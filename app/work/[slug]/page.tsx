@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectBySlug, projects, type Project } from "@/lib/projects";
+import { getProjects, projects, type Project } from "@/lib/projects";
 import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import { RevealText } from "@/components/ui/RevealText";
 import { RevealSection } from "@/components/ui/RevealSection";
@@ -12,7 +12,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const allProjects = await getProjects();
+  const project = allProjects.find((p) => p.slug === slug);
   if (!project) return {};
   return {
     title: project.title,
@@ -30,10 +31,10 @@ const fields: { key: keyof Project & string; label: string }[] = [
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const allProjects = await getProjects();
+  const index = allProjects.findIndex((p) => p.slug === slug);
+  const project = allProjects[index];
   if (!project) notFound();
-
-  const index = projects.findIndex((p) => p.slug === slug);
 
   const jsonLd = {
     "@context": "https://schema.org",

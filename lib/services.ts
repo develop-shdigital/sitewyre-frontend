@@ -1,3 +1,5 @@
+import { getBackendServices } from "@/lib/api";
+
 export interface Service {
   slug: string;
   title: string;
@@ -61,4 +63,11 @@ export const services: Service[] = [
 
 export function getServiceBySlug(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);
+}
+
+/** Live service list from the backend when configured, else the static fallback above. */
+export async function getServices(): Promise<Service[]> {
+  const backendServices = await getBackendServices();
+  if (!backendServices || backendServices.length === 0) return services;
+  return backendServices;
 }

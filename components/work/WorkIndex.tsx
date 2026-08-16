@@ -3,13 +3,17 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
-import { projects } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import { motionTokens, springs } from "@/lib/motion-tokens";
 
 const FILTERS = ["All", "Web Design", "WordPress", "E-commerce", "Development", "Performance"] as const;
 
-export function WorkIndex() {
+interface WorkIndexProps {
+  projects: Project[];
+}
+
+export function WorkIndex({ projects }: WorkIndexProps) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
 
   const filtered = useMemo(

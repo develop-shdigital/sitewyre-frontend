@@ -1,3 +1,5 @@
+import { getBackendProjects, getBackendProjectBySlug, type BackendProject } from "@/lib/api";
+
 export interface Project {
   title: string;
   slug: string;
@@ -163,4 +165,40 @@ export function getProjectBySlug(slug: string): Project | undefined {
 
 export function getFeaturedProjects(): Project[] {
   return projects.filter((p) => p.featured);
+}
+
+function mapBackendProject(raw: BackendProject): Project {
+  return {
+    title: raw.title,
+    slug: raw.slug,
+    client: raw.client,
+    industry: raw.industry,
+    location: raw.location,
+    category: raw.category,
+    description: raw.description,
+    challenge: raw.challenge,
+    approach: raw.approach,
+    design: raw.design,
+    development: raw.development,
+    performance: raw.performance,
+    services: raw.services,
+    technologies: raw.technologies,
+    filters: raw.filters,
+    featured: raw.featured,
+    url: raw.url,
+  };
+}
+
+/** Live project list from the backend when configured, else the static fallback above. */
+export async function getProjects(): Promise<Project[]> {
+  const backendProjects = await getBackendProjects();
+  if (!backendProjects || backendProjects.length === 0) return projects;
+  return backendProjects.map(mapBackendProject);
+}
+
+/** Live single project from the backend when configured, else the static fallback above. */
+export async function getProjectBySlugAsync(slug: string): Promise<Project | undefined> {
+  const backendProject = await getBackendProjectBySlug(slug);
+  if (backendProject) return mapBackendProject(backendProject);
+  return getProjectBySlug(slug);
 }

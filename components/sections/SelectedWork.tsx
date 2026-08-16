@@ -3,17 +3,24 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
-import { projects } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import { motionTokens } from "@/lib/motion-tokens";
 import { RevealText } from "@/components/ui/RevealText";
 
+interface SelectedWorkProps {
+  projects: Project[];
+}
+
 /**
  * Cinematic pinned case-study reel: metadata and visual stay fixed in the
  * viewport while scrolling through the section advances which project is
- * shown, instead of a scrollable card grid.
+ * shown, instead of a scrollable card grid. Receives project data as a
+ * prop — fetched (backend-or-static-fallback) by the server-component
+ * parent, since this component itself needs "use client" for scroll
+ * tracking and can't fetch data directly.
  */
-export function SelectedWork() {
+export function SelectedWork({ projects }: SelectedWorkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 

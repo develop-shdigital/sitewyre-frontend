@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { services } from "@/lib/services";
+import { getServices } from "@/lib/services";
 import { RevealText } from "@/components/ui/RevealText";
 import { RevealSection } from "@/components/ui/RevealSection";
 
@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   description: "Web design, WordPress development, Next.js and React, e-commerce, custom applications, and performance optimization.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const services = await getServices();
+
   return (
     <div className="py-32 md:py-40">
       <div className="container-page">

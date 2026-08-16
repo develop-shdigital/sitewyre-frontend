@@ -8,14 +8,17 @@ import { Technology } from "@/components/sections/Technology";
 import { AboutTeaser } from "@/components/sections/AboutTeaser";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FinalCTA } from "@/components/sections/FinalCTA";
+import { getProjects } from "@/lib/projects";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const projects = await getProjects();
+
   return (
     <>
       <Hero />
       <Positioning />
       <Capabilities />
-      <SelectedWork />
+      <SelectedWork projects={projects} />
       <Proof />
       <Process />
       <Technology />

@@ -1,13 +1,15 @@
-import { testimonials } from "@/lib/testimonials";
+import { getTestimonials } from "@/lib/testimonials";
 import { RevealSection } from "@/components/ui/RevealSection";
 import { StaggerChildren } from "@/components/ui/RevealSection";
 
 /**
- * Fully data-driven: renders real testimonials once lib/testimonials.ts has
- * entries. Until then, shows a quiet placeholder instead of fabricated
- * quotes — see that file's comment for the schema.
+ * Fully data-driven: renders real testimonials once the backend (or the
+ * static lib/testimonials.ts fallback) has entries. Until then, shows a
+ * quiet placeholder instead of fabricated quotes.
  */
-export function Testimonials() {
+export async function Testimonials() {
+  const testimonials = await getTestimonials();
+
   if (testimonials.length === 0) {
     return (
       <section className="container-page border-t border-border py-24 text-center md:py-32">

@@ -24,16 +24,18 @@
   --grid-line-strong: rgba(21, 20, 27, 0.12);
 
   /* Soft mesh wash behind the framed shell — lavender / blush / peach, the
-     Noomo-reference palette, kept diffuse enough to stay out of text's way. */
+     Noomo-reference palette. Large, soft-edged blooms (blurred via
+     body::before's filter below) so it reads as one diffuse wash rather
+     than distinct blobs. */
   --gradient-mesh:
-    radial-gradient(at 12% 15%, rgba(255, 205, 205, 0.55) 0, transparent 52%),
-    radial-gradient(at 88% 12%, rgba(255, 214, 179, 0.45) 0, transparent 50%),
-    radial-gradient(at 18% 88%, rgba(203, 214, 255, 0.55) 0, transparent 55%),
-    radial-gradient(at 92% 92%, rgba(224, 205, 255, 0.4) 0, transparent 55%),
+    radial-gradient(at 22% 28%, rgba(255, 198, 203, 0.6) 0%, transparent 68%),
+    radial-gradient(at 82% 15%, rgba(255, 210, 175, 0.5) 0%, transparent 65%),
+    radial-gradient(at 14% 85%, rgba(198, 212, 255, 0.6) 0%, transparent 68%),
+    radial-gradient(at 88% 92%, rgba(222, 200, 255, 0.5) 0%, transparent 68%),
     var(--color-bg);
 
-  --shell-margin: clamp(0px, 1.4vw, 14px);
-  --shell-radius: 28px;
+  --shell-margin: clamp(16px, 5vw, 64px);
+  --shell-radius: 32px;
 }
 
 * {
@@ -53,13 +55,16 @@ body {
 }
 
 /* Fixed pastel mesh wash — sits behind the rounded shell so the margin (and
-   the shell's own rounded corners) reveal it. */
+   the shell's own rounded corners) reveal it. Oversized + blurred so the
+   radial-gradient blooms melt into one soft wash instead of showing hard
+   circular edges. */
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  inset: -120px;
   z-index: -1;
   background: var(--gradient-mesh);
+  filter: blur(70px);
 }
 
 /* The Noomo-reference "framed card": the whole app sits inset from the true

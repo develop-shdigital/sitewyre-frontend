@@ -21,7 +21,7 @@ export function FinalCTA() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: motionTokens.duration.slow }}
-          className="mt-4 font-display text-h1 font-medium text-accent"
+          className="mt-4 font-display text-h1 font-medium text-accent-ink"
         >
           Let&rsquo;s build it.
         </motion.p>

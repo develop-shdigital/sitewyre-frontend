@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/footer/Footer";
@@ -8,9 +8,16 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { PageTransition } from "@/components/scroll/PageTransition";
 import { site } from "@/lib/site";
 
-const display = Bricolage_Grotesque({
+const display = Archivo({
   subsets: ["latin"],
+  weight: ["600", "700", "800"],
   variable: "--font-display",
+  display: "swap",
+});
+
+const sans = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
   display: "swap",
 });
 
@@ -58,7 +65,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body>
         <script
           type="application/ld+json"
@@ -73,11 +80,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ScrollProgress />
         <CustomCursor />
-        <Navbar />
-        <main id="main-content">
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <Footer />
+        <div className="site-shell">
+          <Navbar />
+          <main id="main-content">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

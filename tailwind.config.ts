@@ -2,8 +2,8 @@ import type { Config } from "tailwindcss";
 
 // Design tokens — three-layer system (primitive -> semantic -> component),
 // values sourced from CSS custom properties defined in app/globals.css so the
-// palette has exactly one source of truth. Dark-only brand system by design
-// (no light-mode toggle — see SITEWYRE brief: "Use a dark visual system").
+// palette has exactly one source of truth. Light pastel brand system by
+// design (no dark-mode toggle).
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {
@@ -20,9 +20,11 @@ const config: Config = {
         accent: "var(--color-accent)",
         "accent-fg": "var(--color-accent-fg)",
         "accent-muted": "var(--color-accent-muted)",
+        "accent-ink": "var(--color-accent-ink)",
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {

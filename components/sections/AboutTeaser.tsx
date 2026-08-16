@@ -19,7 +19,7 @@ export function AboutTeaser() {
           </p>
           <Link
             href="/about"
-            className="mt-8 inline-flex items-center gap-2 font-mono text-label uppercase text-fg transition-colors hover:text-accent"
+            className="mt-8 inline-flex items-center gap-2 font-mono text-label uppercase text-fg transition-colors hover:text-accent-ink"
             data-cursor="interactive"
           >
             More about SITEWYRE →

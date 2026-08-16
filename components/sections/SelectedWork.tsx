@@ -55,7 +55,7 @@ export function SelectedWork({ projects }: SelectedWorkProps) {
                 exit={{ opacity: 0, y: -motionTokens.distance.md }}
                 transition={{ duration: motionTokens.duration.normal, ease: motionTokens.easing.smooth }}
               >
-                <span className="font-mono text-label text-accent">{String(active + 1).padStart(2, "0")}</span>
+                <span className="font-mono text-label text-accent-ink">{String(active + 1).padStart(2, "0")}</span>
                 <h3 className="mt-4 font-display text-h1 font-medium text-fg">{project.title}</h3>
                 <p className="mt-2 text-fg-muted">
                   {project.industry}
@@ -74,7 +74,7 @@ export function SelectedWork({ projects }: SelectedWorkProps) {
                 </div>
                 <Link
                   href={`/work/${project.slug}`}
-                  className="mt-8 inline-flex items-center gap-2 font-mono text-label uppercase text-fg transition-colors hover:text-accent"
+                  className="mt-8 inline-flex items-center gap-2 font-mono text-label uppercase text-fg transition-colors hover:text-accent-ink"
                   data-cursor="open"
                   data-cursor-label="OPEN"
                 >

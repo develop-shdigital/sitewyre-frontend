@@ -52,10 +52,29 @@ export function Hero() {
     <section ref={sectionRef} className="relative h-[100svh] min-h-[640px] overflow-hidden bg-bg">
       <GridLines columns={8} className="opacity-60" />
 
+      <div aria-hidden className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden">
+        <span className="font-display text-emboss whitespace-nowrap text-[clamp(4.5rem,20vw,15rem)] font-extrabold uppercase leading-none tracking-tight">
+          Structure
+        </span>
+      </div>
+
       <div className="absolute inset-0">
         {use3D && <WireframeScene scrollProgress={scrollProgressRef} />}
         {useFallbackVisual && <WireframeFallback />}
       </div>
+
+      <motion.div
+        aria-hidden
+        className="absolute right-[8%] top-[18%] hidden h-14 w-14 rotate-12 rounded-lg border border-border-strong bg-bg-elevated/80 shadow-sm md:block"
+        animate={reduce ? undefined : { y: [0, -14, 0], rotate: [12, 4, 12] }}
+        transition={reduce ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute bottom-[16%] right-[16%] hidden h-9 w-9 -rotate-6 rounded-md border border-accent/40 bg-accent-muted md:block"
+        animate={reduce ? undefined : { y: [0, 12, 0], rotate: [-6, 8, -6] }}
+        transition={reduce ? undefined : { duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+      />
 
       <motion.div
         style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
@@ -64,6 +83,17 @@ export function Hero() {
         <p className="font-mono text-label uppercase tracking-widest2 text-fg-muted">
           {site.name} / Digital Experience Studio
         </p>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {["Web Design", "Next.js Development", "Performance Engineering"].map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-border-strong bg-bg-elevated/70 px-3.5 py-1.5 font-mono text-micro uppercase tracking-widest2 text-fg-muted"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
 
         <RevealText
           as="h1"

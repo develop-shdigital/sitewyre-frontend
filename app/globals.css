@@ -3,21 +3,37 @@
 @tailwind utilities;
 
 :root {
-  /* Primitive -> semantic color tokens. Dark-only brand system. */
-  --color-bg: #0a0a0b;
-  --color-bg-elevated: #121214;
-  --color-bg-elevated-2: #1a1a1d;
-  --color-fg: #f4f1ea;
-  --color-fg-muted: #8b8b8e;
-  --color-fg-subtle: #55555a;
-  --color-border: rgba(244, 241, 234, 0.08);
-  --color-border-strong: rgba(244, 241, 234, 0.16);
+  /* Primitive -> semantic color tokens. Light pastel brand system. */
+  --color-bg: #eef0f9;
+  --color-bg-elevated: #fffefc;
+  --color-bg-elevated-2: #f5f2ee;
+  --color-fg: #15141b;
+  --color-fg-muted: #57545f;
+  --color-fg-subtle: #8d8993;
+  --color-border: rgba(21, 20, 27, 0.09);
+  --color-border-strong: rgba(21, 20, 27, 0.18);
   --color-accent: #ff5a1f;
-  --color-accent-fg: #0a0a0b;
-  --color-accent-muted: rgba(255, 90, 31, 0.14);
+  --color-accent-fg: #15141b;
+  --color-accent-muted: rgba(255, 90, 31, 0.13);
+  /* Darker text-safe variant of the accent — #ff5a1f fails AA (2.7:1) as
+     foreground text on the light bg; this passes at 5.1:1 while staying
+     recognizably the same warm amber. Use for text/icons, never backgrounds. */
+  --color-accent-ink: #b23f16;
 
-  --grid-line: rgba(244, 241, 234, 0.06);
-  --grid-line-strong: rgba(244, 241, 234, 0.12);
+  --grid-line: rgba(21, 20, 27, 0.06);
+  --grid-line-strong: rgba(21, 20, 27, 0.12);
+
+  /* Soft mesh wash behind the framed shell — lavender / blush / peach, the
+     Noomo-reference palette, kept diffuse enough to stay out of text's way. */
+  --gradient-mesh:
+    radial-gradient(at 12% 15%, rgba(255, 205, 205, 0.55) 0, transparent 52%),
+    radial-gradient(at 88% 12%, rgba(255, 214, 179, 0.45) 0, transparent 50%),
+    radial-gradient(at 18% 88%, rgba(203, 214, 255, 0.55) 0, transparent 55%),
+    radial-gradient(at 92% 92%, rgba(224, 205, 255, 0.4) 0, transparent 55%),
+    var(--color-bg);
+
+  --shell-margin: clamp(0px, 1.4vw, 14px);
+  --shell-radius: 28px;
 }
 
 * {
@@ -31,9 +47,42 @@ html {
 body {
   background: var(--color-bg);
   color: var(--color-fg);
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Fixed pastel mesh wash — sits behind the rounded shell so the margin (and
+   the shell's own rounded corners) reveal it. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--gradient-mesh);
+}
+
+/* The Noomo-reference "framed card": the whole app sits inset from the true
+   viewport edge, rounded, bordered — the mesh wash shows through the margin. */
+.site-shell {
+  position: relative;
+  margin: var(--shell-margin);
+  min-height: calc(100svh - (var(--shell-margin) * 2));
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--shell-radius);
+  background: var(--color-bg);
+  overflow: clip;
+}
+
+/* Debossed/engraved wordmark treatment (the "VISION ENGINE" reference) — text
+   colored a hair off the surface it sits on, defined by a light/dark
+   text-shadow pairing instead of fill contrast. Reserved for one-off hero
+   watermark moments, never for running copy. */
+.text-emboss {
+  color: #dedad2;
+  text-shadow:
+    1px 1px 1px rgba(255, 255, 255, 0.85),
+    -1px -1px 1px rgba(21, 20, 27, 0.12);
 }
 
 ::selection {

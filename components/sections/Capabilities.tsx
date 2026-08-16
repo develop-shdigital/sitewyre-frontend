@@ -15,7 +15,7 @@ export function Capabilities() {
       <StaggerChildren className="mt-16 grid gap-16 md:grid-cols-12 md:gap-8">
         {capabilities.map((group, i) => (
           <StaggerItem key={group.title} className={`${widths[i]} ${offsets[i]}`}>
-            <span className="font-mono text-micro uppercase tracking-widest2 text-accent">
+            <span className="font-mono text-micro uppercase tracking-widest2 text-accent-ink">
               {String(i + 1).padStart(2, "0")}
             </span>
             <h3 className="mt-4 font-display text-h1 font-medium text-fg">{group.title}</h3>

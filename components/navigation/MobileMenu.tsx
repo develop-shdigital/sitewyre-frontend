@@ -81,7 +81,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
               <Link
                 href="/contact"
                 onClick={onClose}
-                className="inline-block rounded-full border border-accent px-6 py-3 font-mono text-label uppercase text-accent"
+                className="inline-block rounded-full border border-accent px-6 py-3 font-mono text-label uppercase text-accent-ink"
               >
                 Start a project
               </Link>

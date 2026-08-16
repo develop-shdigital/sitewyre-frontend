@@ -176,7 +176,7 @@ export function ContactForm() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             role="alert"
-            className="text-sm text-accent"
+            className="text-sm text-accent-ink"
           >
             {error}
           </motion.p>

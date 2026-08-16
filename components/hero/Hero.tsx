@@ -40,6 +40,10 @@ export function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -40]);
+  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -140]);
+  const watermarkOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.3]);
+  const parallaxSlow = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
+  const parallaxFast = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -160]);
 
   // Gate on `mounted` so the server render and the client's first hydration
   // pass are always identical (neither visual renders yet) — WebGL support,
@@ -52,17 +56,24 @@ export function Hero() {
     <section ref={sectionRef} className="relative h-[100svh] min-h-[640px] overflow-hidden bg-bg">
       <GridLines columns={8} className="opacity-60" />
 
-      <div aria-hidden className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden">
+      <motion.div
+        aria-hidden
+        style={{ x: watermarkX, opacity: watermarkOpacity }}
+        className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden"
+      >
         <span className="font-display text-emboss whitespace-nowrap text-[clamp(4.5rem,20vw,15rem)] font-extrabold uppercase leading-none tracking-tight">
           Structure
         </span>
-      </div>
+      </motion.div>
 
       <div className="absolute inset-0">
         {use3D && <WireframeScene scrollProgress={scrollProgressRef} />}
         {useFallbackVisual && <WireframeFallback />}
       </div>
 
+      {/* Floating field, mixed idle-loop + scroll-parallax — the scattered
+          drifting props from the Noth.in reference, reworked for our light
+          palette instead of copying its foil/metallic material. */}
       <motion.div
         aria-hidden
         className="absolute right-[8%] top-[18%] hidden h-14 w-14 rotate-12 rounded-lg border border-border-strong bg-bg-elevated/80 shadow-sm md:block"
@@ -74,6 +85,21 @@ export function Hero() {
         className="absolute bottom-[16%] right-[16%] hidden h-9 w-9 -rotate-6 rounded-md border border-accent/40 bg-accent-muted md:block"
         animate={reduce ? undefined : { y: [0, 12, 0], rotate: [-6, 8, -6] }}
         transition={reduce ? undefined : { duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+      />
+      <motion.div
+        aria-hidden
+        style={{ y: parallaxSlow }}
+        className="absolute left-[6%] top-[30%] hidden h-6 w-6 rotate-45 rounded-md border border-border-strong bg-bg-elevated/60 md:block"
+      />
+      <motion.div
+        aria-hidden
+        style={{ y: parallaxFast }}
+        className="absolute right-[22%] top-[68%] hidden h-16 w-16 rounded-full border border-border-strong bg-bg-elevated/50 md:block"
+      />
+      <motion.div
+        aria-hidden
+        style={{ y: parallaxSlow }}
+        className="absolute left-[24%] top-[78%] hidden h-5 w-5 rotate-12 rounded-full border border-accent-ink/30 bg-accent-muted md:block"
       />
 
       <motion.div
@@ -146,12 +172,18 @@ export function Hero() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-micro uppercase tracking-widest2 text-fg-subtle"
+        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3"
         style={{ opacity: contentOpacity }}
-        animate={reduce ? undefined : { y: [0, 6, 0] }}
-        transition={reduce ? undefined : { duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       >
-        Scroll to explore
+        <span className="font-mono text-micro uppercase tracking-widest2 text-fg-subtle">Scroll to explore</span>
+        <span className="flex h-8 w-5 items-start justify-center rounded-full border border-border-strong p-1">
+          <motion.span
+            aria-hidden
+            className="h-1.5 w-1.5 rounded-full bg-accent-ink"
+            animate={reduce ? undefined : { y: [0, 10, 0], opacity: [1, 0.3, 1] }}
+            transition={reduce ? undefined : { duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </span>
       </motion.div>
     </section>
   );

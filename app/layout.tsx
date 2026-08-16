@@ -6,6 +6,8 @@ import { Footer } from "@/components/footer/Footer";
 import { CustomCursor } from "@/components/cursor/CustomCursor";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { PageTransition } from "@/components/scroll/PageTransition";
+import { SmoothScroll } from "@/components/scroll/SmoothScroll";
+import { GrainOverlay } from "@/components/ui/GrainOverlay";
 import { site } from "@/lib/site";
 
 const display = Archivo({
@@ -80,6 +82,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ScrollProgress />
         <CustomCursor />
+        <SmoothScroll />
+        <GrainOverlay />
         <div className="site-shell">
           <Navbar />
           <main id="main-content">

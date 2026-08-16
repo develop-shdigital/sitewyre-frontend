@@ -4,7 +4,7 @@ import { StaggerChildren, StaggerItem } from "@/components/ui/RevealSection";
 
 export function Proof() {
   return (
-    <section className="border-t border-border bg-bg-elevated">
+    <section className="section-invert border-t border-border bg-bg-elevated">
       <StaggerChildren className="container-page grid gap-10 py-24 md:grid-cols-4 md:py-32">
         {site.stats.map((stat) => (
           <StaggerItem key={stat.label}>

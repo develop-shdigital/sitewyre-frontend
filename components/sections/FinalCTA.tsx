@@ -5,8 +5,11 @@ import { motion } from "motion/react";
 import { RevealText } from "@/components/ui/RevealText";
 import { GridLines } from "@/components/ui/GridLines";
 import { motionTokens } from "@/lib/motion-tokens";
+import { useMagnetic } from "@/hooks/use-magnetic";
 
 export function FinalCTA() {
+  const magnetic = useMagnetic();
+
   return (
     <section className="relative overflow-hidden border-t border-border py-40 md:py-56">
       <GridLines columns={10} className="opacity-40" />
@@ -33,14 +36,22 @@ export function FinalCTA() {
           transition={{ delay: 0.5, duration: motionTokens.duration.slow, ease: motionTokens.easing.smooth }}
           className="mt-14 flex flex-wrap items-center gap-6"
         >
-          <Link
-            href="/contact"
-            className="rounded-full bg-accent px-8 py-4 font-mono text-label uppercase text-accent-fg transition-transform hover:scale-[1.03]"
-            data-cursor="open"
-            data-cursor-label="OPEN"
+          <motion.span
+            ref={magnetic.ref as React.RefObject<HTMLSpanElement>}
+            style={magnetic.style}
+            onPointerMove={magnetic.onPointerMove}
+            onPointerLeave={magnetic.onPointerLeave}
+            className="inline-block"
           >
-            Start a project →
-          </Link>
+            <Link
+              href="/contact"
+              className="rounded-full bg-accent px-8 py-4 font-mono text-label uppercase text-accent-fg transition-transform hover:scale-[1.03]"
+              data-cursor="open"
+              data-cursor-label="OPEN"
+            >
+              Start a project →
+            </Link>
+          </motion.span>
           <Link
             href="/work"
             className="font-mono text-label uppercase text-fg underline decoration-border-strong underline-offset-8 transition-colors hover:decoration-accent"

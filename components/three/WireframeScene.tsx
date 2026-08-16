@@ -25,11 +25,12 @@ function StructureGroup({ scrollProgress }: SceneProps) {
 
     if (group.current) {
       group.current.rotation.y += delta * 0.08;
-      group.current.rotation.x = pointer.current.y * 0.2 + p * 0.3;
+      group.current.rotation.x = pointer.current.y * 0.2 + p * 0.6;
+      group.current.rotation.z = p * 0.25;
       group.current.rotation.y += pointer.current.x * 0.0008;
-      group.current.position.z = -p * 3.5;
+      group.current.position.z = -p * 5.5;
       const fade = 1 - Math.min(p / 0.85, 1);
-      group.current.scale.setScalar(0.92 + fade * 0.08);
+      group.current.scale.setScalar(0.88 + fade * 0.16);
     }
     if (outer.current) {
       const mat = outer.current.material as THREE.LineBasicMaterial;
@@ -37,7 +38,7 @@ function StructureGroup({ scrollProgress }: SceneProps) {
     }
     if (inner.current) {
       inner.current.rotation.y -= delta * 0.14;
-      inner.current.position.y = p * 1.6;
+      inner.current.position.y = p * 2.4;
       const mat = inner.current.material as THREE.LineBasicMaterial;
       mat.opacity = (1 - Math.min(p / 0.85, 1)) * 0.85;
     }

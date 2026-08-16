@@ -24,7 +24,7 @@ export default async function ServicesPage() {
         {services.map((service, i) => (
           <section key={service.slug} className="container-page grid gap-8 border-border py-16 md:grid-cols-12 md:py-24">
             <div className="md:col-span-4">
-              <span className="font-mono text-label text-accent">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-mono text-label text-accent-ink">{String(i + 1).padStart(2, "0")}</span>
               <RevealText as="h2" className="mt-4 font-display text-h1 font-medium text-fg">
                 {service.title}
               </RevealText>
@@ -58,7 +58,7 @@ export default async function ServicesPage() {
 
               <Link
                 href="/contact"
-                className="mt-8 inline-flex items-center gap-2 font-mono text-label uppercase text-fg transition-colors hover:text-accent"
+                className="mt-8 inline-flex items-center gap-2 font-mono text-label uppercase text-fg transition-colors hover:text-accent-ink"
                 data-cursor="interactive"
               >
                 Start a project →

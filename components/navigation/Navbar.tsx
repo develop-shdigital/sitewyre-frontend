@@ -19,9 +19,9 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-50 transition-colors"
+        className="sticky top-0 z-50 transition-colors"
         animate={{
-          backgroundColor: scrolled ? "rgba(10,10,11,0.72)" : "rgba(10,10,11,0)",
+          backgroundColor: scrolled ? "rgba(255,254,252,0.75)" : "rgba(255,254,252,0)",
           borderBottomColor: scrolled ? "var(--color-border)" : "rgba(0,0,0,0)",
           backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
         }}
@@ -49,11 +49,11 @@ export function Navbar() {
 
           <Link
             href="/contact"
-            className="hidden rounded-full border border-border-strong px-5 py-2.5 font-mono text-label uppercase text-fg transition-colors hover:border-accent hover:text-accent md:inline-block"
+            className="hidden items-center gap-2 rounded-full bg-fg px-5 py-2.5 font-mono text-label uppercase text-bg-elevated transition-colors hover:bg-accent md:inline-flex"
             data-cursor="open"
             data-cursor-label="OPEN"
           >
-            Start a project
+            Start a project <span aria-hidden>→</span>
           </Link>
 
           <button

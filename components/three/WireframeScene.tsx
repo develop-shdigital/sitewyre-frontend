@@ -52,7 +52,7 @@ function StructureGroup({ scrollProgress }: SceneProps) {
     <group ref={group} scale={scale}>
       <lineSegments ref={outer}>
         <edgesGeometry args={[outerGeo]} />
-        <lineBasicMaterial color="#f4f1ea" transparent opacity={0.5} />
+        <lineBasicMaterial color="#15141b" transparent opacity={0.45} />
       </lineSegments>
       <lineSegments ref={inner}>
         <edgesGeometry args={[innerGeo]} />

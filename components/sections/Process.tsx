@@ -17,7 +17,7 @@ export function Process() {
               style={{ width: `${(i + 1) * 25}%` }}
               aria-hidden
             />
-            <span className="font-mono text-label text-accent">{stage.index}</span>
+            <span className="font-mono text-label text-accent-ink">{stage.index}</span>
             <h3 className="mt-4 font-display text-h2 font-medium text-fg">{stage.title}</h3>
             <p className="mt-3 text-fg-muted">{stage.description}</p>
           </StaggerItem>

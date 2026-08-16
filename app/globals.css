@@ -79,6 +79,25 @@ body::before {
   overflow: clip;
 }
 
+/* Scoped dark inversion for one full-bleed section per page — the
+   alternating light/dark rhythm from the STILL reference. Redefines the
+   same semantic tokens locally, so any existing bg, text, or border
+   utility inside just picks up the dark values automatically. */
+.section-invert {
+  --color-bg: #15141b;
+  --color-bg-elevated: #1c1b23;
+  --color-bg-elevated-2: #242229;
+  --color-fg: #f5f2ee;
+  --color-fg-muted: #b8b5bd;
+  --color-fg-subtle: #83808a;
+  --color-border: rgba(245, 242, 238, 0.12);
+  --color-border-strong: rgba(245, 242, 238, 0.22);
+  --grid-line: rgba(245, 242, 238, 0.08);
+  --grid-line-strong: rgba(245, 242, 238, 0.14);
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
 /* Debossed/engraved wordmark treatment (the "VISION ENGINE" reference) — text
    colored a hair off the surface it sits on, defined by a light/dark
    text-shadow pairing instead of fill contrast. Reserved for one-off hero

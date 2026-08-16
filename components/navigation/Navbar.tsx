@@ -6,11 +6,13 @@ import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { site } from "@/lib/site";
 import { motionTokens } from "@/lib/motion-tokens";
 import { MobileMenu } from "@/components/navigation/MobileMenu";
+import { useMagnetic } from "@/hooks/use-magnetic";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
+  const magnetic = useMagnetic(0.25);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 24);
@@ -47,14 +49,22 @@ export function Navbar() {
             ))}
           </ul>
 
-          <Link
-            href="/contact"
-            className="hidden items-center gap-2 rounded-full bg-fg px-5 py-2.5 font-mono text-label uppercase text-bg-elevated transition-colors hover:bg-accent md:inline-flex"
-            data-cursor="open"
-            data-cursor-label="OPEN"
+          <motion.span
+            ref={magnetic.ref as React.RefObject<HTMLSpanElement>}
+            style={magnetic.style}
+            onPointerMove={magnetic.onPointerMove}
+            onPointerLeave={magnetic.onPointerLeave}
+            className="hidden md:inline-block"
           >
-            Start a project <span aria-hidden>→</span>
-          </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-fg px-5 py-2.5 font-mono text-label uppercase text-bg-elevated transition-colors hover:bg-accent"
+              data-cursor="open"
+              data-cursor-label="OPEN"
+            >
+              Start a project <span aria-hidden>→</span>
+            </Link>
+          </motion.span>
 
           <button
             type="button"

@@ -84,13 +84,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CustomCursor />
         <SmoothScroll />
         <GrainOverlay />
-        <div className="site-shell">
-          <Navbar />
-          <main id="main-content">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <Footer />
-        </div>
+        <Navbar />
+        <main id="main-content">
+          <PageTransition>{children}</PageTransition>
+        </main>
+        <Footer />
       </body>
     </html>
   );

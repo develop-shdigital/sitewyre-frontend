@@ -59,9 +59,9 @@ export function Hero() {
       <motion.div
         aria-hidden
         style={{ x: watermarkX, opacity: watermarkOpacity }}
-        className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden"
+        className="pointer-events-none absolute inset-y-0 right-0 hidden w-[58%] select-none items-end justify-end overflow-hidden pb-[6%] pr-[2%] md:flex"
       >
-        <span className="font-display text-emboss whitespace-nowrap text-[clamp(4.5rem,20vw,15rem)] font-extrabold uppercase leading-none tracking-tight">
+        <span className="font-display whitespace-nowrap text-[clamp(3rem,11vw,8rem)] font-extrabold uppercase leading-none tracking-tight text-fg/[0.08]">
           Structure
         </span>
       </motion.div>

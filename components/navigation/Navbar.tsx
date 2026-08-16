@@ -23,7 +23,7 @@ export function Navbar() {
       <motion.header
         className="sticky top-0 z-50 transition-colors"
         animate={{
-          backgroundColor: scrolled ? "rgba(255,254,252,0.75)" : "rgba(255,254,252,0)",
+          backgroundColor: scrolled ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0)",
           borderBottomColor: scrolled ? "var(--color-border)" : "rgba(0,0,0,0)",
           backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
         }}
